@@ -1,0 +1,327 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f0f;
+    color: #fff;
+    font-size: 12px;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* 左侧边栏 - 整合所有功能 */
+.left-sidebar {
+    width: 250px;
+    background-color: #1a1a1a;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fb7299;
+}
+
+.mode-tab {
+    text-align: center;
+    padding: 15px 0;
+    color: #fb7299;
+    border-left: 3px solid #fb7299;
+    background-color: rgba(251, 114, 153, 0.1);
+}
+
+/* 场景表格 */
+.scene-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.scene-table td {
+    padding: 10px;
+    text-align: center;
+    background-color: #333;
+    border: 1px solid #1a1a1a;
+    cursor: pointer;
+}
+
+.scene-table td.active {
+    background-color: #00aeec;
+}
+
+/* 素材标签页 */
+.material-tabs {
+    display: flex;
+    margin: 15px 0 10px;
+    border-bottom: 1px solid #333;
+}
+
+.material-tab {
+    background: none;
+    border: none;
+    color: #999;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.material-tab.active {
+    color: #fff;
+    border-bottom: 2px solid #fb7299;
+}
+
+.material-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.material-action-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 直播工具区域 */
+.tool-section {
+    margin: 20px 0;
+}
+
+.tool-section-title {
+    font-size: 14px;
+    margin: 15px 0 10px;
+    color: #999;
+}
+
+.tool-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tool-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    margin: 0 5px 5px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.tool-btn i {
+    margin-right: 5px;
+}
+
+/* 主内容区 */
+.main-content {
+    flex: 1;
+    background-color: #0f0f0f;
+    display: flex;
+    flex-direction: column;
+}
+
+.live-area {
+    flex: 1;
+    background-color: #000;
+    position: relative;
+}
+
+.welcome-message {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.follow-btn {
+    background-color: #fb7299;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.game-title {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px 15px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.view-mode {
+    margin-left: 15px;
+    color: #999;
+}
+
+.view-mode span {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.view-mode span.active {
+    color: #fff;
+}
+
+/* 底部控制栏 */
+.bottom-controls {
+    height: 80px;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+.source-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.source-btn i {
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.volume-slider {
+    width: 80px;
+}
+
+.volume-percent {
+    width: 40px;
+    text-align: center;
+}
+
+.start-live-btn {
+    background-color: #fb7299;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: 14px;
+}
+
+.stats {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    color: #999;
+}
+
+.more-details {
+    color: #999;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* 右侧边栏 - 仅保留观众信息 */
+.right-sidebar {
+    width: 200px;
+    background-color: #1a1a1a;
+    padding: 15px;
+}
+
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+.sidebar-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #999;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-title .more {
+    color: #999;
+    cursor: pointer;
+}
+
+.audience-count {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.gift-income {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.tab-buttons {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: #999;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.tab-btn.active {
+    color: #fff;
+    border-bottom: 2px solid #fb7299;
+}
+
+.contribution-value {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+
+.data-section {
+    font-size: 12px;
+    color: #999;
+    margin-top: 20px;
+}
