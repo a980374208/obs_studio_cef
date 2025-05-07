@@ -2,232 +2,89 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>直播互动界面</title>
+    <title>纯CSS Tab带列表示例</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .tab-container {
+            width: 400px;
+            margin: 40px auto;
             font-family: 'Microsoft YaHei', sans-serif;
         }
-        
-        body {
-            background-color: #1a1a1a;
-            color: #fff;
+        .tab-header {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            border-bottom: 2px solid #eee;
         }
-        
-        .interaction-container {
-            width: 100%;
-            max-width: 400px;
-            background-color: #252525;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .interaction-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #333;
-        }
-        
-        .interaction-header h2 {
-            font-size: 18px;
-            font-weight: normal;
-        }
-        
-        .header-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .header-icons i {
-            font-size: 18px;
+        .tab-header label {
+            padding: 10px 30px;
+            cursor: pointer;
             color: #999;
-            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 16px;
         }
-        
-        .interaction-content {
-            position: relative;
-            height: 300px;
-            overflow: hidden;
+        #tab1:checked ~ .tab-header label[for="tab1"],
+        #tab2:checked ~ .tab-header label[for="tab2"],
+        #tab3:checked ~ .tab-header label[for="tab3"] {
+            color: #fb7299;
+            border-bottom: 2px solid #fb7299;
+            background: #fff;
         }
-        
-        .message-section {
-            padding: 15px;
-            position: absolute;
-            left: 0;
-            right: 0;
-            overflow-y: auto;
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid #eee;
+            border-top: none;
         }
-        
-        .message-section p {
-            font-size: 14px;
-            line-height: 1.5;
-            color: #ccc;
-        }
-        
-        #top-section {
-            top: 0;
-            bottom: 50%;
-            background-color: #333;
-        }
-        
-        #bottom-section {
-            top: 50%;
-            bottom: 0;
-            background-color: #2a2a2a;
-        }
-        
-        .resize-handle {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 10px;
-            margin-top: -5px;
-            background-color: #333;
-            cursor: row-resize;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .resize-handle::after {
-            content: "";
+        #tab1:checked ~ .tab-content.tab1,
+        #tab2:checked ~ .tab-content.tab2,
+        #tab3:checked ~ .tab-content.tab3 {
             display: block;
-            width: 40px;
-            height: 3px;
-            background-color: #666;
-            border-radius: 3px;
         }
-        
-        .input-section {
-            display: flex;
-            align-items: center;
-            background-color: #333;
-            padding: 10px 15px;
-            border-top: 1px solid #444;
+        .tab-radio {
+            display: none;
         }
-        
-        .input-section input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #fff;
-            padding: 8px;
-            font-size: 14px;
-            outline: none;
+        ul {
+            margin: 0;
+            padding-left: 20px;
         }
-        
-        .input-section input::placeholder {
-            color: #666;
-        }
-        
-        .char-counter {
-            font-size: 12px;
-            color: #666;
-            margin: 0 10px;
-        }
-        
-        .send-button {
-            background-color: #fb7299;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
+        li {
+            margin: 8px 0;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="interaction-container">
-        <div class="interaction-header">
-            <h2>直播互动</h2>
-            <div class="header-icons">
-                <i class="fas fa-bell"></i>
-                <i class="fas fa-gift"></i>
-            </div>
-        </div>
-        
-        <div class="interaction-content">
-            <div id="top-section" class="message-section">
-                <p>展示本场直播弹幕评论、送礼消息及送</p>
-                <p>礼动画等互动消息</p>
-            </div>
-            
-            <div class="resize-handle"></div>
-            
-            <div id="bottom-section" class="message-section">
-                <p>展示本场直播观众进房、关注、分享等</p>
-                <p>行为消息</p>
-            </div>
-        </div>
-        
-        <div class="input-section">
-            <input type="text" placeholder="请输入文字" maxlength="20">
-            <div class="char-counter">0/20</div>
-            <button class="send-button">发送</button>
-        </div>
+<div class="tab-container">
+    <input type="radio" name="tab" id="tab1" class="tab-radio" checked>
+    <input type="radio" name="tab" id="tab2" class="tab-radio">
+    <input type="radio" name="tab" id="tab3" class="tab-radio">
+
+    <div class="tab-header">
+        <label for="tab1">选项卡一</label>
+        <label for="tab2">选项卡二</label>
+        <label for="tab3">选项卡三</label>
     </div>
-
-    <script>
-        // 字数统计功能
-        const input = document.querySelector('input');
-        const counter = document.querySelector('.char-counter');
-        
-        input.addEventListener('input', () => {
-            counter.textContent = `${input.value.length}/20`;
-        });
-
-        // 拖动分隔条功能
-        const resizeHandle = document.querySelector('.resize-handle');
-        const topSection = document.getElementById('top-section');
-        const bottomSection = document.getElementById('bottom-section');
-        const container = document.querySelector('.interaction-content');
-        
-        let isDragging = false;
-        
-        resizeHandle.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            document.body.style.cursor = 'row-resize';
-            e.preventDefault();
-        });
-        
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            
-            const containerRect = container.getBoundingClientRect();
-            const containerTop = containerRect.top;
-            const containerHeight = containerRect.height;
-            
-            // 计算新位置（限制在容器范围内）
-            let newTop = e.clientY - containerTop;
-            newTop = Math.max(50, Math.min(containerHeight - 50, newTop));
-            
-            // 更新两个区域的高度
-            const topPercent = (newTop / containerHeight) * 100;
-            topSection.style.bottom = `${100 - topPercent}%`;
-            bottomSection.style.top = `${topPercent}%`;
-            
-            // 更新分隔条位置
-            resizeHandle.style.top = `${topPercent}%`;
-        });
-        
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            document.body.style.cursor = '';
-        });
-    </script>
+    <div class="tab-content tab1">
+        <ul>
+            <li>苹果</li>
+            <li>香蕉</li>
+            <li>橙子</li>
+        </ul>
+    </div>
+    <div class="tab-content tab2">
+        <ul>
+            <li>C++</li>
+            <li>Python</li>
+            <li>Java</li>
+        </ul>
+    </div>
+    <div class="tab-content tab3">
+        <ul>
+            <li>北京</li>
+            <li>上海</li>
+            <li>广州</li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>

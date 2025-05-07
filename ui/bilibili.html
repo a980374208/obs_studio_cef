@@ -14,27 +14,54 @@
             <div class="logo">bilibili</div>
             <div class="mode-tab">常规模式</div>
             
-            <!-- 场景表格 -->
-            <table class="scene-table">
-                <tr>
-                    <td class="active">场景1</td>
-                    <td>场景2</td>
-                    <td>场景3</td>
-                </tr>
-            </table>
-            
-            <button class="material-action-btn" style="width:100%;margin-bottom:15px;">添加素材，搭建你的直播场景吧！</button>
-            
+			<div class="scene-tab">
+				<input type="radio" name="tab" id="tab1" class="tab-radio" checked>
+				<input type="radio" name="tab" id="tab2" class="tab-radio">
+				<input type="radio" name="tab" id="tab3" class="tab-radio">
+				<input type="radio" name="tab" id="tab4" class="tab-radio">
+				<div class="tab-header">
+					<label for="tab1">场景一</label>
+					<label for="tab2">场景二</label>
+					<label for="tab3">场景三</label>
+					<label for="tab4">场景四</label>
+				</div>
+				<div class="tab-content tab1">
+                 <ul>
+                     <li>苹果</li>
+                     <li>香蕉</li>
+                     <li>橙子</li>
+                 </ul>
+                 </div>
+                 <div class="tab-content tab2">
+                     <ul>
+                         <li>C++</li>
+                         <li>Python</li>
+                         <li>Java</li>
+                     </ul>
+                 </div>
+                 <div class="tab-content tab3">
+                     <ul>
+                         <li>北京</li>
+                         <li>上海</li>
+                         <li>广州</li>
+                     </ul>
+                 </div>
+				 <div class="tab-content tab4">
+                     <ul>
+                         <li>北京</li>
+                         <li>上海</li>
+                         <li>广州</li>
+                     </ul>
+                 </div>
+			</div>
+			
             <!-- 素材标签页 -->
             <div class="material-tabs">
-                <button class="material-tab active">素材</button>
-                <button class="material-tab">H5插件</button>
+                <button class="material-action-btn">素材</button>
+                <button class="material-action-btn">H5插件</button>
+				<button class="material-action-btn">清空</button>
             </div>
             
-            <div class="material-actions">
-                <button class="material-action-btn">清空</button>
-                <button class="material-action-btn">添加素材</button>
-            </div>
             
             <!-- 直播工具区域 -->
             <div class="tool-section">
@@ -138,7 +165,107 @@
                 <div>0</div>
                 <div>00</div>
             </div>
+			 <div class="interaction-container">
+        <div class="interaction-header">
+            <h2>直播互动</h2>
+            <div class="header-icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-gift"></i>
+            </div>
+        </div>
+        
+        <div class="interaction-content">
+            <div id="top-section" class="message-section">
+                <p>展示本场直播弹幕评论、送礼消息及送</p>
+                <p>礼动画等互动消息</p>
+            </div>
+            
+            <div class="resize-handle"></div>
+            
+            <div id="bottom-section" class="message-section">
+                <p>展示本场直播观众进房、关注、分享等</p>
+                <p>行为消息</p>
+            </div>
+        </div>
+        
+        <div class="input-section">
+            <input type="text" placeholder="请输入文字" maxlength="20">
+            <div class="char-counter">0/20</div>
+            <button class="send-button">发送</button>
         </div>
     </div>
+        </div>
+    </div>
+	<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 字数统计功能
+    const input = document.querySelector('.input-section input');
+    const counter = document.querySelector('.char-counter');
+    input.addEventListener('input', () => {
+        counter.textContent = `${input.value.length}/20`;
+    });
+
+    // 拖动分隔条功能
+    const resizeHandle = document.querySelector('.resize-handle');
+    const topSection = document.getElementById('top-section');
+    const bottomSection = document.getElementById('bottom-section');
+    const container = document.querySelector('.interaction-content');
+
+    let isDragging = false;
+
+    resizeHandle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        document.body.style.cursor = 'row-resize';
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const containerTop = containerRect.top;
+        const containerHeight = containerRect.height;
+
+        // 计算新位置（限制在容器范围内）
+        let newTop = e.clientY - containerTop;
+        newTop = Math.max(50, Math.min(containerHeight - 50, newTop));
+
+        // 更新两个区域的高度
+        const topPercent = (newTop / containerHeight) * 100;
+        topSection.style.bottom = `${100 - topPercent}%`;
+        bottomSection.style.top = `${topPercent}%`;
+
+        // 更新分隔条位置
+        resizeHandle.style.top = `${topPercent}%`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        document.body.style.cursor = '';
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.tab-radio');
+    const tabHeader = document.querySelector('.tab-header');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('change', function() {
+            const targetLabel = tabHeader.querySelector(`label[for="${tab.id}"]`);
+            const labelOffsetLeft = targetLabel.offsetLeft;
+            const labelWidth = targetLabel.offsetWidth;
+            const containerWidth = tabHeader.offsetWidth;
+
+            // 计算滚动位置，让标签居中显示
+            const scrollPosition = labelOffsetLeft - (containerWidth - labelWidth) / 2;
+            tabHeader.scroll({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        });
+    });
+});
+</script>
 </body>
 </html>

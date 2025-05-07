@@ -42,50 +42,72 @@ body {
 }
 
 /* 场景表格 */
-.scene-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 15px 0;
-}
+  .scene-tab {
+            width:auto;
+            margin: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        .tab-header {
+            display: flex;
+            border-bottom: 2px solid #eee;
+			overflow-x: auto; /* 允许横向滚动 */
+			scrollbar-width: none; /* 隐藏滚动条 */
+        }
+		.tab-header::-webkit-scrollbar {
+			display: none; /* 隐藏滚动条 */
+		}
+        .tab-header label {
+			flex-shrink: 0; /* 确保 label 的宽度不会被压缩 */
+			width: 80px; 
+			height: 25px;
+            padding: 2px 2px;
+            cursor: pointer;
+            /* color: #999; */
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 8px;
+			text-align: center;
+        }
+        #tab1:checked ~ .tab-header label[for="tab1"],
+        #tab2:checked ~ .tab-header label[for="tab2"],
+        #tab3:checked ~ .tab-header label[for="tab3"],
+		#tab4:checked ~ .tab-header label[for="tab4"]		{
+            color: #fb7299;
+            border-bottom: 2px solid #fb7299;
+            background: #fff;
+        }
+        .tab-content {
+            display: none;
+            padding: 2px;
+            background: #0f0f0f;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid #eee;
+            border-top: none;
+        }
+        #tab1:checked ~ .tab-content.tab1,
+        #tab2:checked ~ .tab-content.tab2,
+        #tab3:checked ~ .tab-content.tab3,
+        #tab4:checked ~ .tab-content.tab4 {
+            display: block;
+        }
+        .tab-radio {
+            display: none;
+        }
+        ul {
+            margin: 0;
+            padding-left: 2px;
+        }
+        li {
+            margin: 8px 0;
+			background-color:#0f0f0f;
+        }
 
-.scene-table td {
-    padding: 10px;
-    text-align: center;
-    background-color: #333;
-    border: 1px solid #1a1a1a;
-    cursor: pointer;
-}
-
-.scene-table td.active {
-    background-color: #00aeec;
-}
 
 /* 素材标签页 */
 .material-tabs {
     display: flex;
-    margin: 15px 0 10px;
+    margin: 15px 0;
     border-bottom: 1px solid #333;
-}
-
-.material-tab {
-    background: none;
-    border: none;
-    color: #999;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 12px;
-    margin-right: 5px;
-}
-
-.material-tab.active {
-    color: #fff;
-    border-bottom: 2px solid #fb7299;
-}
-
-.material-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
 }
 
 .material-action-btn {
@@ -95,7 +117,24 @@ body {
     padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
+    margin-right: 10px; /* 增加间距保证视觉效果 */
+    position: relative;
 }
+
+.material-action-btn::after {
+    content: "|"; /* 分隔符内容 */
+    position: absolute;
+    right: -10px; /* 分隔符位置 */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-weight: bold;
+}
+
+.material-tabs .material-action-btn:last-child::after {
+    content: ""; /* 最后一个按钮不显示分隔符 */
+}
+
 
 /* 直播工具区域 */
 .tool-section {
@@ -247,8 +286,8 @@ body {
 
 .stats {
     position: absolute;
-    right: 20px;
-    bottom: 10px;
+    left: 20px;
+    bottom: 5px;
     color: #999;
 }
 
@@ -324,4 +363,72 @@ body {
     font-size: 12px;
     color: #999;
     margin-top: 20px;
+}
+.interaction-container {
+    background: #181818;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 20px;
+    color: #fff;
+}
+
+.interaction-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.interaction-header h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    color: #fb7299;
+}
+
+.header-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-icons i {
+    font-size: 16px;
+    color: #fb7299;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.header-icons i:hover {
+    color: #ffb3c6;
+}
+.resize-handle {
+    height: 8px;
+    background: #333;
+    cursor: row-resize;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 2;
+	 top: 50%;   /* 新增这一行 */
+    transform: translateY(-50%); /* 让分隔条居中对齐 */
+}
+.interaction-content {
+    position: relative;
+    height: 200px;
+}
+#top-section, #bottom-section {
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: auto;
+}
+#top-section {
+    top: 0;
+    bottom: 50%;
+}
+#bottom-section {
+    top: 50%;
+    bottom: 0;
 }
